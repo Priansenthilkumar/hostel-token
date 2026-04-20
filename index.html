@@ -272,6 +272,10 @@
     <div class="container">
         <div class="controls">
             <div class="ctrl-group">
+                <label>Token Label</label>
+                <input type="text" id="tokenLabel" value="Friday Lunch Token" style="width:150px;font-size:14px;padding:8px 12px;border:1.5px solid #d0d8e0;border-radius:6px;" />
+            </div>
+            <div class="ctrl-group">
                 <label>Token range</label>
                 <div class="range-row">
                     <input type="number" id="fromN" value="1" min="1" max="4000" />
@@ -294,6 +298,7 @@
 
     <script>
         let currentPage = 1;
+        let tokenLabel = 'Friday Lunch Token';
 
         function makeToken(n) {
             return `<div class="token">
@@ -307,7 +312,7 @@
                 </div>
                 <div class="token-body">
                     <div class="tok-num">${n}</div>
-                    <div class="tok-day">KPRIET Hostel Tokens</div>
+                    <div class="tok-day">${tokenLabel}</div>
                 </div>
                 <div class="token-right">
                     <div class="tok-dot"></div>
@@ -318,6 +323,7 @@
         }
 
         function renderTokens() {
+            tokenLabel = document.getElementById('tokenLabel').value || 'Friday Lunch Token';
             const from = Math.max(1, parseInt(document.getElementById('fromN').value) || 1);
             const to = Math.min(4000, parseInt(document.getElementById('toN').value) || 4000);
             const pp = Math.max(10, Math.min(200, parseInt(document.getElementById('perPage').value) || 40));
@@ -379,6 +385,7 @@
             renderTokens();
         }
 
+        document.getElementById('tokenLabel').addEventListener('input', renderTokens);
         renderTokens();
     </script>
 </body>
