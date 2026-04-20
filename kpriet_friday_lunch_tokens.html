@@ -404,8 +404,8 @@
 
     <div id="tokenGrid" class="token-grid"></div>
     <div class="pagination" id="pagination"></div>
-    <div id="editControls" style="display:none; text-align:center; padding:20px; gap:10px; margin-top:20px;">
-        <button class="edit-mode-btn save" onclick="saveEdits()">✓ Save Changes</button>
+    <div id="editControls" style="display:none; text-align:center; padding:20px; margin-top:20px; gap:10px;">
+        <button class="edit-mode-btn save" onclick="saveEdits()" style="margin-right: 10px;">✓ Save Changes</button>
         <button class="edit-mode-btn cancel" onclick="cancelEdit()">✕ Cancel</button>
     </div>
     </div>
@@ -530,6 +530,11 @@
             event.stopPropagation();
             
             const numElement = document.getElementById(`num-${tokenNum}`);
+            if (!numElement) return;
+            
+            // Check if already in edit mode
+            if (numElement.querySelector('input')) return;
+            
             const currentValue = editedTokens[tokenNum] !== undefined ? editedTokens[tokenNum] : tokenNum;
             
             const input = document.createElement('input');
@@ -537,6 +542,7 @@
             input.className = 'edit-input';
             input.value = currentValue;
             
+            // Clear and add input
             numElement.innerHTML = '';
             numElement.appendChild(input);
             input.focus();
@@ -546,17 +552,25 @@
                 const newValue = input.value.trim();
                 if (newValue) {
                     editedTokens[tokenNum] = newValue;
+                    numElement.textContent = newValue;
                 } else {
                     delete editedTokens[tokenNum];
+                    numElement.textContent = tokenNum;
                 }
+                numElement.classList.add('editable');
+            }
+            
+            function cancel() {
                 numElement.textContent = editedTokens[tokenNum] !== undefined ? editedTokens[tokenNum] : tokenNum;
+                numElement.classList.add('editable');
             }
             
             input.addEventListener('blur', saveValue);
-            input.addEventListener('keypress', (e) => {
+            input.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') {
                     saveValue();
-                    input.remove();
+                } else if (e.key === 'Escape') {
+                    cancel();
                 }
             });
         }
