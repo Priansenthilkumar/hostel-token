@@ -447,11 +447,11 @@
         function renderTokens() {
             const from = Math.max(1, parseInt(document.getElementById('fromN').value) || 1);
             const to = Math.min(4000, parseInt(document.getElementById('toN').value) || 4000);
-            const pp = Math.max(10, Math.min(200, parseInt(document.getElementById('perPage').value) || 40));
+            const pp = Math.max(1, Math.min(200, parseInt(document.getElementById('perPage').value) || 40));
             const total = to - from + 1;
             const totalPages = Math.ceil(total / pp);
             
-            if (currentPage > totalPages) currentPage = 1;
+            currentPage = 1;
             
             const start = from + (currentPage - 1) * pp;
             const end = Math.min(from + currentPage * pp - 1, to);

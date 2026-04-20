@@ -96,7 +96,7 @@
             box-shadow: 0 4px 12px rgba(29, 158, 117, 0.2);
         }
         .print-btn:hover { 
-            background: linear-gradient(135deg, #0F6E56, #1D9E75);
+            background: linear-gradient(135deg, #0F6E56, #0dd898);
             transform: translateY(-2px);
         }
         .token-info { 
@@ -254,7 +254,7 @@
             background: linear-gradient(135deg, #FF6B6B, #EE5A6F);
             color: #fff;
             border: none;
-            padding: 8px 16px;
+            padding: 16px;
             border-radius: 6px;
             font-family: 'Nunito', sans-serif;
             font-weight: 600;
@@ -334,7 +334,7 @@
             </div>
             <div class="ctrl-group">
                 <label>Per page</label>
-                <input type="number" id="perPage" value="40" min="10" max="200" style="width:80px;font-size:14px;padding:4px 8px;border:1px solid #ddd;border-radius:4px;" />
+                <input type="number" id="perPage" value="30" min="10" max="200" style="width:80px;font-size:14px;padding:4px 8px;border:1px solid #ddd;border-radius:4px;" />
             </div>
             <button class="preview-btn" onclick="renderTokens()">Preview</button>
             <button class="print-btn" onclick="window.print()">🖨 Print</button>
@@ -382,7 +382,7 @@
             if (currentPage > totalPages) currentPage = 1;
             
             const start = from + (currentPage - 1) * pp;
-            const end = Math.min(from + currentPage * pp - 1, to);
+            const end = Math.min(start + pp - 1, to);
             
             let html = '';
             for (let i = start; i <= end; i++) {
