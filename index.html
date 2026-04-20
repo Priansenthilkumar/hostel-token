@@ -116,49 +116,50 @@
         .token {
             width: 100%;
             aspect-ratio: 2/1;
-            border-radius: 10px;
-            background: linear-gradient(to bottom, #ffffff, #f9fbff);
-            border: 2px solid #1D4E8F;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #1D4E8F 0%, #2E5FA4 100%);
+            border: 2px solid #ffffff;
             display: flex;
             flex-direction: row;
             align-items: stretch;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 3px 12px rgba(29, 78, 143, 0.12);
+            box-shadow: 0 8px 24px rgba(29, 78, 143, 0.25), inset 0 1px 0 rgba(255,255,255,0.2);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: default;
         }
         .token:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(29, 78, 143, 0.18);
-            border-color: #0F4A7A;
+            transform: translateY(-6px);
+            box-shadow: 0 12px 32px rgba(29, 78, 143, 0.35), inset 0 1px 0 rgba(255,255,255,0.2);
+            border-color: #f0f0f0;
         }
         .token-left {
-            width: 32px;
-            background: linear-gradient(180deg, #2563eb 0%, #1e40af 100%);
+            width: 36px;
+            background: linear-gradient(180deg, #ffffff 0%, #f5f5f5 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
             padding: 14px 0;
             flex-shrink: 0;
-            border-radius: 8px 0 0 8px;
+            border-radius: 10px 0 0 10px;
+            box-shadow: inset -2px 0 4px rgba(0,0,0,0.1);
         }
         .tok-dot { 
-            width: 7px; 
-            height: 7px; 
+            width: 6px; 
+            height: 6px; 
             border-radius: 50%; 
-            background: #ffffff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            background: #1D4E8F;
+            box-shadow: 0 2px 4px rgba(29, 78, 143, 0.3);
         }
         .token-logo {
-            width: 44px;
+            width: 50px;
             flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 8px 3px;
-            border-right: 2px solid #e0e8f0;
+            padding: 8px 6px;
+            border-right: 2px solid rgba(255,255,255,0.3);
         }
         .logo-box {
             width: 36px;
@@ -178,34 +179,37 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 8px 10px;
-            gap: 3px;
+            padding: 8px 12px;
+            gap: 2px;
         }
         .tok-num { 
             font-family: 'Poppins', 'Segoe UI', sans-serif; 
-            font-size: 34px; 
-            font-weight: 700; 
-            color: #1e40af; 
+            font-size: 36px; 
+            font-weight: 800; 
+            color: #ffffff; 
             line-height: 1;
             letter-spacing: -1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
         .tok-day { 
-            font-size: 8px; 
-            font-weight: 600; 
-            color: #2563eb; 
-            letter-spacing: 0.08em; 
-            text-transform: uppercase; 
+            font-size: 9px; 
+            font-weight: 700; 
+            color: #ffffff; 
+            letter-spacing: 0.1em; 
+            text-transform: uppercase;
+            opacity: 0.95;
         }
         .token-right {
-            width: 32px;
-            background: linear-gradient(180deg, #2563eb 0%, #1e40af 100%);
+            width: 36px;
+            background: linear-gradient(180deg, #ffffff 0%, #f5f5f5 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
             padding: 14px 0;
             flex-shrink: 0;
-            border-radius: 0 8px 8px 0;
+            border-radius: 0 10px 10px 0;
+            box-shadow: inset 2px 0 4px rgba(0,0,0,0.1);
         }
         .pagination { 
             display: flex; 
