@@ -589,6 +589,9 @@
             input.className = 'edit-input';
             input.value = currentValue;
             
+            // Store original HTML
+            const originalContent = numElement.innerHTML;
+            
             // Clear and add input
             numElement.innerHTML = '';
             numElement.appendChild(input);
@@ -608,15 +611,17 @@
             }
             
             function cancel() {
-                numElement.textContent = editedTokens[tokenNum] !== undefined ? editedTokens[tokenNum] : tokenNum;
+                numElement.innerHTML = originalContent;
                 numElement.classList.add('editable');
             }
             
             input.addEventListener('blur', saveValue);
             input.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') {
+                    e.preventDefault();
                     saveValue();
                 } else if (e.key === 'Escape') {
+                    e.preventDefault();
                     cancel();
                 }
             });
