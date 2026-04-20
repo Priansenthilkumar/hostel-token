@@ -251,53 +251,55 @@
             font-weight: 500;
         }
         .edit-label-btn {
-              background: linear-gradient(135deg, #FF6B6B, #EE5A6F);
-              color: #fff;
-              border: none;
-              border-radius: 8px;
-              font-family: 'Nunito', sans-serif;
-              font-weight: 700;
-              font-size: 15px;
-              cursor: pointer;
-              box-shadow: 0 4px 12px rgba(255, 107, 107, 0.18);
-              padding: 10px 22px;
-              transition: background 0.2s, transform 0.2s;
-              margin-left: 6px;
-              margin-top: 2px;
-              letter-spacing: 0.02em;
+            background: linear-gradient(135deg, #FF6B6B, #EE5A6F);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.18);
+            padding: 10px 22px;
+            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+            outline: none;
+            letter-spacing: 0.03em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            min-width: 100px;
+            justify-content: center;
         }
         .edit-label-btn:hover {
-              background: linear-gradient(135deg, #FF5252, #E63946);
-              transform: translateY(-2px) scale(1.04);
+            background: linear-gradient(135deg, #FF5252, #E63946);
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 4px 16px rgba(255, 82, 82, 0.18);
+        }
+        @media (max-width: 600px) {
+            .controls {
+                flex-direction: column;
+                gap: 14px;
+                padding: 14px 6px;
+            }
+            .ctrl-group > div,
+            .ctrl-group input,
+            .edit-label-btn,
+            .preview-btn,
+            .print-btn {
+                width: 100%;
+                min-width: unset;
+                box-sizing: border-box;
+            }
+            .edit-label-btn {
+                font-size: 16px;
+                padding: 12px 0;
+            }
+            .token-label-input {
+                width: 100%;
+                min-width: unset;
+            }
         }
         @media print {
-                    @media (max-width: 600px) {
-                        .controls {
-                            flex-direction: column;
-                            gap: 16px;
-                            padding: 16px 8px;
-                        }
-                        .ctrl-group {
-                            width: 100%;
-                        }
-                        .token-label-input {
-                            width: 100%;
-                            min-width: 0;
-                        }
-                        .edit-label-btn {
-                            width: 100%;
-                            margin-left: 0;
-                            margin-top: 8px;
-                            padding: 12px 0;
-                            font-size: 16px;
-                        }
-                        .preview-btn, .print-btn {
-                            width: 100%;
-                            margin-top: 8px;
-                            font-size: 16px;
-                            padding: 12px 0;
-                        }
-                    }
             .pagination { display: none !important; }
             .controls { display: none !important; }
             body { background: white; padding: 0; margin: 0; }
