@@ -254,13 +254,30 @@
             gap: 2px;
         }
         .tok-num { 
-            font-family: 'Poppins', 'Segoe UI', sans-serif; 
-            font-size: 36px; 
-            font-weight: 800; 
-            color: #ffffff; 
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+            font-size: 36px;
+            font-weight: 800;
+            color: #ffffff;
             line-height: 1;
             letter-spacing: -1px;
             text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            word-break: break-all;
+            max-width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: font-size 0.2s;
+        }
+        /* Responsive font size for large token numbers */
+        .tok-num.tok-num-3 { font-size: 28px; }
+        .tok-num.tok-num-4 { font-size: 22px; }
+        .tok-num.tok-num-5, .tok-num.tok-num-6, .tok-num.tok-num-7 { font-size: 18px; }
+        @media (max-width: 600px) {
+            .tok-num { font-size: 24px; }
+            .tok-num.tok-num-3 { font-size: 20px; }
+            .tok-num.tok-num-4 { font-size: 16px; }
+            .tok-num.tok-num-5, .tok-num.tok-num-6, .tok-num.tok-num-7 { font-size: 13px; }
+        }
         }
         .tok-day { 
             font-size: 9px; 
@@ -442,17 +459,35 @@
                 <input type="number" id="perPage" value="30" min="10" max="200" style="width:80px;font-size:14px;padding:4px 8px;border:1px solid #ddd;border-radius:4px;" />
             </div>
             <button class="preview-btn" onclick="openPreviewModal()">Preview</button>
+                        <button class="preview-btn" style="background:linear-gradient(135deg,#868e96,#adb5bd);margin-left:0;" onclick="showTokenCount()">How many tokens print?</button>
             <button class="print-btn" onclick="window.print()">🖨 Print</button>
             <div class="token-info" id="tokenInfo">Showing tokens 1–40 of 4000</div>
         </div>
 
         <div id="tokenGrid" class="token-grid"></div>
+                <div id="tokenCountMsg" style="display:none;margin:18px 0 0 0;text-align:center;font-weight:600;color:#495057;background:#f8f9fa;border-radius:8px;padding:10px 0;box-shadow:0 2px 8px #adb5bd22;"></div>
             <!-- Modal for live preview -->
             <div id="previewModal" style="display:none;"></div>
         <div class="pagination" id="pagination"></div>
     </div>
 
     <script>
+        function showTokenCount() {
+            const from = Math.max(1, parseInt(document.getElementById('fromN').value) || 1);
+            const to = Math.min(4000, parseInt(document.getElementById('toN').value) || 4000);
+            const pp = Math.max(10, Math.min(200, parseInt(document.getElementById('perPage').value) || 40));
+            const total = to - from + 1;
+            const totalPages = Math.ceil(total / pp);
+            if (currentPage > totalPages) currentPage = 1;
+            const start = from + (currentPage - 1) * pp;
+            const end = Math.min(start + pp - 1, to);
+            const count = end - start + 1;
+            const msg = `Tokens to print on this page: <span style='color:#1D4E8F'>${count}</span>`;
+            const el = document.getElementById('tokenCountMsg');
+            el.innerHTML = msg;
+            el.style.display = '';
+            setTimeout(()=>{ el.style.display = 'none'; }, 3000);
+        }
 
         // Centralized theme state
         const COLORS = [
@@ -469,6 +504,12 @@
 
         function makeToken(n) {
             const color = COLORS[currentColorIdx];
+            const color = COLORS[currentColorIdx];
+            let numClass = '';
+            const len = String(n).length;
+            if (len === 3) numClass = 'tok-num-3';
+            else if (len === 4) numClass = 'tok-num-4';
+            else if (len >= 5) numClass = 'tok-num-5';
             return `<div class="token" style="background: ${color.grad}; box-shadow: 0 8px 24px ${color.main}33, inset 0 1px 0 #fff3; border: 2px solid #fff; transition: background 0.3s;">
                 <div class="token-left" style="background: linear-gradient(180deg, #fff 0%, #f5f5f5 100%);">
                     <div class="tok-dot" style="background:${color.dot};"></div>
@@ -479,7 +520,7 @@
                     <img src="kpriet-logo.jpeg" alt="KPRIET" style="width: 40px; height: 40px; object-fit: contain; border-radius: 5px;" />
                 </div>
                 <div class="token-body">
-                    <div class="tok-num">${n}</div>
+                    <div class="tok-num ${numClass}">${n}</div>
                     <div class="tok-day">${tokenLabel}</div>
                 </div>
                 <div class="token-right" style="background: linear-gradient(180deg, #fff 0%, #f5f5f5 100%);">
