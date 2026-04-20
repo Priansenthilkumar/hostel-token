@@ -238,10 +238,29 @@
             border-color: #1D4E8F;
             color: #1D4E8F;
         }
-        .page-label { 
-            font-size: 13px; 
-            color: #495057;
+        .token-label-input {
+            width: 180px;
+            font-size: 14px;
+            padding: 8px 12px;
+            border: 1.5px solid #d0d8e0;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+        .edit-label-btn {
+            background: linear-gradient(135deg, #FF6B6B, #EE5A6F);
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-family: 'Nunito', sans-serif;
             font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.2);
+        }
+        .edit-label-btn:hover {
+            background: linear-gradient(135deg, #FF5252, #E63946);
+            transform: translateY(-1px);
         }
         @media print {
             .pagination { display: none !important; }
@@ -272,8 +291,11 @@
     <div class="container">
         <div class="controls">
             <div class="ctrl-group">
-                <label>Token Label</label>
-                <input type="text" id="tokenLabel" value="Friday Lunch Token" style="width:150px;font-size:14px;padding:8px 12px;border:1.5px solid #d0d8e0;border-radius:6px;" />
+                <label>Edit Token Label</label>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                    <input type="text" id="tokenLabel" class="token-label-input" value="Friday Lunch Token" />
+                    <button class="edit-label-btn" onclick="updateTokenLabel()">✎ Update</button>
+                </div>
             </div>
             <div class="ctrl-group">
                 <label>Token range</label>
@@ -385,7 +407,10 @@
             renderTokens();
         }
 
-        document.getElementById('tokenLabel').addEventListener('input', renderTokens);
+        function updateTokenLabel() {
+            renderTokens();
+        }
+
         renderTokens();
     </script>
 </body>
