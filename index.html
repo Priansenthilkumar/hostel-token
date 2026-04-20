@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KPRIET Hostel Tokens</title>
+    <title>KPRIET Friday Lunch Tokens</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Nunito:wght@400;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         body { 
@@ -49,10 +49,6 @@
             gap: 20px; 
             align-items: flex-end;
             box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-            transition: box-shadow 0.3s ease;
-        }
-        .controls:hover {
-            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
         }
         .ctrl-group { display: flex; flex-direction: column; gap: 6px; }
         .ctrl-group label { 
@@ -69,13 +65,7 @@
             padding: 8px 12px;
             border: 1.5px solid #d0d8e0;
             border-radius: 6px;
-            transition: all 0.2s ease;
             font-weight: 500;
-        }
-        .range-row input[type=number]:focus {
-            outline: none;
-            border-color: #1D4E8F;
-            box-shadow: 0 0 0 3px rgba(29, 78, 143, 0.1);
         }
         .preview-btn { 
             background: linear-gradient(135deg, #1D4E8F, #2E5FA4);
@@ -87,16 +77,11 @@
             font-weight: 700; 
             font-size: 14px; 
             cursor: pointer;
-            transition: all 0.2s ease;
             box-shadow: 0 4px 12px rgba(29, 78, 143, 0.2);
         }
         .preview-btn:hover { 
             background: linear-gradient(135deg, #153970, #1D4E8F);
             transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(29, 78, 143, 0.3);
-        }
-        .preview-btn:active {
-            transform: translateY(0);
         }
         .print-btn { 
             background: linear-gradient(135deg, #1D9E75, #2EACA5);
@@ -108,16 +93,11 @@
             font-weight: 700; 
             font-size: 14px; 
             cursor: pointer;
-            transition: all 0.2s ease;
             box-shadow: 0 4px 12px rgba(29, 158, 117, 0.2);
         }
         .print-btn:hover { 
             background: linear-gradient(135deg, #0F6E56, #1D9E75);
             transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(29, 158, 117, 0.3);
-        }
-        .print-btn:active {
-            transform: translateY(0);
         }
         .token-info { 
             font-size: 13px; 
@@ -125,88 +105,7 @@
             background: linear-gradient(135deg, #f0f2f5, #e8ebf0);
             padding: 8px 14px; 
             border-radius: 8px; 
-            align-self: flex-end;
             font-weight: 600;
-        }
-        .edit-btn, .edit-mode-btn {
-            background: linear-gradient(135deg, #FF9800, #F57C00);
-            color: #fff;
-            border: none;
-            padding: 10px 24px;
-            border-radius: 8px;
-            font-family: 'Nunito', sans-serif;
-            font-weight: 700;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 12px rgba(255, 152, 0, 0.2);
-        }
-        .edit-btn:hover, .edit-mode-btn:hover {
-            background: linear-gradient(135deg, #F57C00, #E65100);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(255, 152, 0, 0.3);
-        }
-        .edit-mode-btn.cancel {
-            background: linear-gradient(135deg, #6c757d, #5a6268);
-            box-shadow: 0 4px 12px rgba(108, 117, 125, 0.2);
-        }
-        .edit-mode-btn.cancel:hover {
-            background: linear-gradient(135deg, #5a6268, #4e555b);
-            box-shadow: 0 6px 16px rgba(108, 117, 125, 0.3);
-        }
-        .edit-mode-btn.save {
-            background: linear-gradient(135deg, #27AE60, #229954);
-            box-shadow: 0 4px 12px rgba(39, 174, 96, 0.2);
-        }
-        .edit-mode-btn.save:hover {
-            background: linear-gradient(135deg, #229954, #1E8449);
-            box-shadow: 0 6px 16px rgba(39, 174, 96, 0.3);
-        }
-        .token.edit-mode {
-            border-color: #FF9800;
-            background: linear-gradient(to bottom, #fff9f5, #fffbf7);
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .token.edit-mode:hover {
-            border-color: #F57C00;
-            box-shadow: 0 3px 12px rgba(255, 152, 0, 0.15);
-        }
-        .tok-num.editable {
-            cursor: pointer;
-            padding: 2px 6px;
-            border-radius: 4px;
-            transition: all 0.2s ease;
-        }
-        .tok-num.editable:hover {
-            background: rgba(255, 152, 0, 0.1);
-        }
-        .edit-input {
-            font-family: 'Playfair Display', serif;
-            font-size: 30px;
-            font-weight: 700;
-            color: #1D4E8F;
-            text-align: center;
-            border: 2px solid #FF9800;
-            border-radius: 6px;
-            padding: 4px 8px;
-            width: 70px;
-            line-height: 1;
-        }
-        .edit-input:focus {
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.2);
-        }
-        #editStatus {
-            font-size: 12px;
-            color: #FF9800;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            padding: 6px 12px;
-            background: linear-gradient(135deg, #fff3e0, #ffe0b2);
-            border-radius: 6px;
-            margin-left: 12px;
         }
         .token-grid { 
             display: grid; 
@@ -214,7 +113,6 @@
             gap: 15px; 
             padding: 0 0 2rem; 
         }
-
         .token {
             width: 100%;
             aspect-ratio: 2/1;
@@ -230,14 +128,11 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: default;
         }
-
         .token:hover {
             transform: translateY(-4px);
             box-shadow: 0 8px 20px rgba(29, 78, 143, 0.18);
             border-color: #0F4A7A;
         }
-
-        /* Left accent strip */
         .token-left {
             width: 32px;
             background: linear-gradient(180deg, #2563eb 0%, #1e40af 100%);
@@ -247,7 +142,6 @@
             justify-content: space-between;
             padding: 14px 0;
             flex-shrink: 0;
-            position: relative;
             border-radius: 8px 0 0 8px;
         }
         .tok-dot { 
@@ -256,9 +150,7 @@
             border-radius: 50%; 
             background: #ffffff;
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
         }
-
         .token-logo {
             width: 44px;
             flex-shrink: 0;
@@ -268,8 +160,18 @@
             padding: 8px 3px;
             border-right: 2px solid #e0e8f0;
         }
-
-        /* Center content */
+        .logo-box {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #1D4E8F, #2E5FA4);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
         .token-body {
             flex: 1;
             display: flex;
@@ -285,7 +187,6 @@
             font-weight: 700; 
             color: #1e40af; 
             line-height: 1;
-            transition: color 0.3s ease;
             letter-spacing: -1px;
         }
         .tok-day { 
@@ -294,10 +195,7 @@
             color: #2563eb; 
             letter-spacing: 0.08em; 
             text-transform: uppercase; 
-            font-family: 'Nunito', sans-serif;
         }
-
-        /* Right accent strip */
         .token-right {
             width: 32px;
             background: linear-gradient(180deg, #2563eb 0%, #1e40af 100%);
@@ -307,10 +205,8 @@
             justify-content: space-between;
             padding: 14px 0;
             flex-shrink: 0;
-            position: relative;
             border-radius: 0 8px 8px 0;
         }
-
         .pagination { 
             display: flex; 
             gap: 10px; 
@@ -331,7 +227,6 @@
             border: 1.5px solid #d0d8e0; 
             background: white; 
             color: #333; 
-            transition: all 0.2s ease;
         }
         .page-btn.active { 
             background: linear-gradient(135deg, #1D4E8F, #2E5FA4);
@@ -348,7 +243,6 @@
             color: #495057;
             font-weight: 600;
         }
-
         @media print {
             .pagination { display: none !important; }
             .controls { display: none !important; }
@@ -359,17 +253,11 @@
                 gap: 25px; 
                 grid-template-columns: repeat(4, 1fr); 
                 padding: 15px;
-                display: grid;
-                align-items: stretch;
-                justify-items: stretch;
             }
             .token { 
                 box-shadow: 0 2px 8px rgba(29, 78, 143, 0.15); 
                 page-break-inside: avoid; 
                 margin: 10px;
-                width: 100%;
-                border: 2px solid #1D4E8F;
-                border-radius: 12px;
             }
             .token:hover { transform: none; }
         }
@@ -383,53 +271,42 @@
 
     <div class="container">
         <div class="controls">
-        <div class="ctrl-group">
-            <label>Token range</label>
-            <div class="range-row">
-                <input type="number" id="fromN" value="1" min="1" max="4000" />
-                <span style="font-size:13px;color:#666">to</span>
-                <input type="number" id="toN" value="4000" min="1" max="4000" />
+            <div class="ctrl-group">
+                <label>Token range</label>
+                <div class="range-row">
+                    <input type="number" id="fromN" value="1" min="1" max="4000" />
+                    <span style="font-size:13px;color:#666">to</span>
+                    <input type="number" id="toN" value="4000" min="1" max="4000" />
+                </div>
             </div>
+            <div class="ctrl-group">
+                <label>Per page</label>
+                <input type="number" id="perPage" value="40" min="10" max="200" style="width:80px;font-size:14px;padding:4px 8px;border:1px solid #ddd;border-radius:4px;" />
+            </div>
+            <button class="preview-btn" onclick="renderTokens()">Preview</button>
+            <button class="print-btn" onclick="window.print()">🖨 Print</button>
+            <div class="token-info" id="tokenInfo">Showing tokens 1–40 of 4000</div>
         </div>
-        <div class="ctrl-group">
-            <label>Per page (preview)</label>
-            <input type="number" id="perPage" value="40" min="10" max="200" style="width:80px;font-size:14px;padding:4px 8px;border:1px solid #ddd;border-radius:4px;" />
-        </div>
-        <button class="preview-btn" onclick="renderTokens()">Preview</button>
-        <button class="print-btn" onclick="window.print()">🖨 Print page</button>
-        <button class="edit-btn" id="editToggle" onclick="toggleEditMode()">✏️ Edit Tokens</button>
-        <div id="editStatus" style="display:none; font-size: 12px; color: #FF9800; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; padding: 6px 12px; background: linear-gradient(135deg, #fff3e0, #ffe0b2); border-radius: 6px; margin-left: 12px; display: inline-block;">EDIT MODE</div>
-        <div class="token-info" id="tokenInfo">Showing tokens 1–50 of 4000</div>
-    </div>
 
-    <div id="tokenGrid" class="token-grid"></div>
-    <div class="pagination" id="pagination"></div>
-    <div id="editControls" style="display:none; text-align:center; padding:20px; gap:10px; margin-top:20px;">
-        <button class="edit-mode-btn save" onclick="saveEdits()">✓ Save Changes</button>
-        <button class="edit-mode-btn cancel" onclick="cancelEdit()">✕ Cancel</button>
-    </div>
+        <div id="tokenGrid" class="token-grid"></div>
+        <div class="pagination" id="pagination"></div>
     </div>
 
     <script>
-        const LOGO = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%231D4E8F" width="100" height="100" rx="10"/><text x="50" y="60" font-size="40" font-weight="bold" fill="white" text-anchor="middle" font-family="Arial">KP</text></svg>';
         let currentPage = 1;
-        let editMode = false;
-        let editedTokens = {};
 
         function makeToken(n) {
-            const editClass = editMode ? 'edit-mode' : '';
-            const displayNum = editedTokens[n] !== undefined ? editedTokens[n] : n;
-            return `<div class="token ${editClass}" onclick="editToken(event, ${n})" data-token="${n}">
+            return `<div class="token">
                 <div class="token-left">
                     <div class="tok-dot"></div>
                     <div class="tok-dot"></div>
                     <div class="tok-dot"></div>
                 </div>
                 <div class="token-logo">
-                    <div style="width: 36px; height: 36px; background: linear-gradient(135deg, #1D4E8F, #2E5FA4); border-radius: 5px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 14px;">KP</div>
+                    <div class="logo-box">KP</div>
                 </div>
                 <div class="token-body">
-                    <div class="tok-num ${editMode ? 'editable' : ''}" id="num-${n}">${displayNum}</div>
+                    <div class="tok-num">${n}</div>
                     <div class="tok-day">Friday Lunch Token</div>
                 </div>
                 <div class="token-right">
@@ -499,95 +376,6 @@
 
         function goPage(p) { 
             currentPage = p;
-            renderTokens();
-        }
-
-        function toggleEditMode() {
-            editMode = !editMode;
-            const editBtn = document.getElementById('editToggle');
-            const editStatus = document.getElementById('editStatus');
-            const editControls = document.getElementById('editControls');
-            const controls = document.querySelector('.controls');
-            
-            if (editMode) {
-                editBtn.textContent = '✏️ Exit Edit Mode';
-                editBtn.style.background = 'linear-gradient(135deg, #E65100, #D84315)';
-                editStatus.style.display = 'inline-block';
-                editControls.style.display = 'flex';
-                editControls.style.justifyContent = 'center';
-                controls.style.alignItems = 'center';
-            } else {
-                editBtn.textContent = '✏️ Edit Tokens';
-                editBtn.style.background = '';
-                editStatus.style.display = 'none';
-                editControls.style.display = 'none';
-            }
-            renderTokens();
-        }
-
-        function editToken(event, tokenNum) {
-            if (!editMode) return;
-            event.stopPropagation();
-            
-            const numElement = document.getElementById(`num-${tokenNum}`);
-            const currentValue = editedTokens[tokenNum] !== undefined ? editedTokens[tokenNum] : tokenNum;
-            
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.className = 'edit-input';
-            input.value = currentValue;
-            
-            numElement.innerHTML = '';
-            numElement.appendChild(input);
-            input.focus();
-            input.select();
-            
-            function saveValue() {
-                const newValue = input.value.trim();
-                if (newValue) {
-                    editedTokens[tokenNum] = newValue;
-                } else {
-                    delete editedTokens[tokenNum];
-                }
-                numElement.textContent = editedTokens[tokenNum] !== undefined ? editedTokens[tokenNum] : tokenNum;
-            }
-            
-            input.addEventListener('blur', saveValue);
-            input.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    saveValue();
-                    input.remove();
-                }
-            });
-        }
-
-        function saveEdits() {
-            editMode = false;
-            const editBtn = document.getElementById('editToggle');
-            const editStatus = document.getElementById('editStatus');
-            const editControls = document.getElementById('editControls');
-            
-            editBtn.textContent = '✏️ Edit Tokens';
-            editBtn.style.background = '';
-            editStatus.style.display = 'none';
-            editControls.style.display = 'none';
-            
-            alert('✓ Changes saved successfully!');
-            renderTokens();
-        }
-
-        function cancelEdit() {
-            editedTokens = {};
-            editMode = false;
-            const editBtn = document.getElementById('editToggle');
-            const editStatus = document.getElementById('editStatus');
-            const editControls = document.getElementById('editControls');
-            
-            editBtn.textContent = '✏️ Edit Tokens';
-            editBtn.style.background = '';
-            editStatus.style.display = 'none';
-            editControls.style.display = 'none';
-            
             renderTokens();
         }
 
