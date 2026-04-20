@@ -208,98 +208,6 @@
             border-radius: 6px;
             margin-left: 12px;
         }
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-        .modal-overlay.active {
-            display: flex;
-        }
-        .modal-box {
-            background: white;
-            border-radius: 12px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 500px;
-            width: 90%;
-            animation: slideUp 0.3s ease;
-        }
-        @keyframes slideUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        .modal-box h2 {
-            color: #1D4E8F;
-            margin-bottom: 25px;
-            font-size: 1.8em;
-            font-weight: 700;
-        }
-        .modal-field {
-            margin-bottom: 20px;
-        }
-        .modal-field label {
-            display: block;
-            font-size: 13px;
-            color: #495057;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 8px;
-        }
-        .modal-field input, .modal-field textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #d0d8e0;
-            border-radius: 8px;
-            font-family: 'Nunito', sans-serif;
-            font-size: 14px;
-            transition: all 0.2s ease;
-        }
-        .modal-field input:focus, .modal-field textarea:focus {
-            outline: none;
-            border-color: #1D4E8F;
-            box-shadow: 0 0 0 3px rgba(29, 78, 143, 0.1);
-        }
-        .modal-actions {
-            display: flex;
-            gap: 12px;
-            margin-top: 30px;
-        }
-        .modal-actions button {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            font-family: 'Nunito', sans-serif;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 14px;
-        }
-        .modal-btn-save {
-            background: linear-gradient(135deg, #27AE60, #229954);
-            color: white;
-        }
-        .modal-btn-save:hover {
-            background: linear-gradient(135deg, #229954, #1E8449);
-            transform: translateY(-2px);
-        }
-        .modal-btn-cancel {
-            background: linear-gradient(135deg, #6c757d, #5a6268);
-            color: white;
-        }
-        .modal-btn-cancel:hover {
-            background: linear-gradient(135deg, #5a6268, #4e555b);
-            transform: translateY(-2px);
-        }
         .token-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
@@ -493,39 +401,29 @@
         </div>
         <button class="preview-btn" onclick="renderTokens()">Preview</button>
         <button class="print-btn" onclick="window.print()">Print</button>
-        <button class="edit-btn" id="editToggle" onclick="toggleEditMode()">Edit Label</button>
+        <button class="edit-btn" id="editToggle" onclick="toggleEditMode()">Edit Tokens</button>
+        <div id="editStatus" style="display:none; font-size: 12px; color: #FF9800; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; padding: 6px 12px; background: linear-gradient(135deg, #fff3e0, #ffe0b2); border-radius: 6px; margin-left: 12px; display: inline-block;">EDIT MODE</div>
         <div class="token-info" id="tokenInfo">Showing tokens 1–50 of 4000</div>
     </div>
 
     <div id="tokenGrid" class="token-grid"></div>
     <div class="pagination" id="pagination"></div>
-
-    <!-- Edit Modal -->
-    <div class="modal-overlay" id="editModal">
-        <div class="modal-box">
-            <h2>Edit Tokens</h2>
-            <div class="modal-field">
-                <label>Token Label (Appears on all tokens)</label>
-                <input type="text" id="modalTokenLabel" placeholder="e.g. Meals Token, Lunch Voucher...">
-            </div>
-            <div class="modal-actions">
-                <button class="modal-btn-save" onclick="applyEditChanges()">Save Changes</button>
-                <button class="modal-btn-cancel" onclick="closeEditModal()">Cancel</button>
-            </div>
-        </div>
+    <div id="editControls" style="display:none; text-align:center; padding:20px; margin-top:20px; gap:10px;">
+        <button class="edit-mode-btn save" onclick="saveEdits()" style="margin-right: 10px;">Save Changes</button>
+        <button class="edit-mode-btn cancel" onclick="cancelEdit()">Cancel</button>
     </div>
-
     </div>
 
     <script>
         const LOGO = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%231D4E8F" width="100" height="100" rx="10"/><text x="50" y="60" font-size="40" font-weight="bold" fill="white" text-anchor="middle" font-family="Arial">KP</text></svg>';
         let currentPage = 1;
+        let editMode = false;
         let editedTokens = {};
 
         function makeToken(n) {
             const editClass = editMode ? 'edit-mode' : '';
             const displayNum = editedTokens[n] !== undefined ? editedTokens[n] : n;
-            return `<div class="token ${editClass}" data-token="${n}">
+            return `<div class="token ${editClass}" onclick="editToken(event, ${n})" data-token="${n}">
                 <div class="token-left">
                     <div class="tok-dot"></div>
                     <div class="tok-dot"></div>
@@ -535,7 +433,7 @@
                     <img src="kpriet-logo.jpeg" alt="KPRIET" style="width: 40px; height: 40px; object-fit: contain; border-radius: 5px;" />
                 </div>
                 <div class="token-body">
-                    <div class="tok-num" id="num-${n}">${displayNum}</div>
+                    <div class="tok-num ${editMode ? 'editable' : ''}" id="num-${n}">${displayNum}</div>
                     <div class="tok-day">${document.getElementById('tokenLabel').value}</div>
                 </div>
                 <div class="token-right">
@@ -609,41 +507,107 @@
         }
 
         function toggleEditMode() {
-            const modal = document.getElementById('editModal');
-            const labelInput = document.getElementById('modalTokenLabel');
-            labelInput.value = document.getElementById('tokenLabel').value;
-            modal.classList.add('active');
-        }
-
-        function closeEditModal() {
-            const modal = document.getElementById('editModal');
-            modal.classList.remove('active');
-        }
-
-        function applyEditChanges() {
-            const labelInput = document.getElementById('modalTokenLabel');
-            const newLabel = labelInput.value.trim();
+            editMode = !editMode;
+            const editBtn = document.getElementById('editToggle');
+            const editStatus = document.getElementById('editStatus');
+            const editControls = document.getElementById('editControls');
+            const controls = document.querySelector('.controls');
             
-            if (!newLabel) {
-                alert('Please enter a token label');
-                return;
+            if (editMode) {
+                editBtn.textContent = 'Exit Edit Mode';
+                editBtn.style.background = 'linear-gradient(135deg, #E65100, #D84315)';
+                editStatus.style.display = 'inline-block';
+                editControls.style.display = 'flex';
+                editControls.style.justifyContent = 'center';
+                controls.style.alignItems = 'center';
+            } else {
+                editBtn.textContent = 'Edit Tokens';
+                editBtn.style.background = '';
+                editStatus.style.display = 'none';
+                editControls.style.display = 'none';
+            }
+            renderTokens();
+        }
+
+        function editToken(event, tokenNum) {
+            if (!editMode) return;
+            event.stopPropagation();
+            
+            const numElement = document.getElementById(`num-${tokenNum}`);
+            if (!numElement) return;
+            
+            // Check if already in edit mode
+            if (numElement.querySelector('input')) return;
+            
+            const currentValue = editedTokens[tokenNum] !== undefined ? editedTokens[tokenNum] : tokenNum;
+            
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'edit-input';
+            input.value = currentValue;
+            
+            // Clear and add input
+            numElement.innerHTML = '';
+            numElement.appendChild(input);
+            input.focus();
+            input.select();
+            
+            function saveValue() {
+                const newValue = input.value.trim();
+                if (newValue) {
+                    editedTokens[tokenNum] = newValue;
+                    numElement.textContent = newValue;
+                } else {
+                    delete editedTokens[tokenNum];
+                    numElement.textContent = tokenNum;
+                }
+                numElement.classList.add('editable');
             }
             
-            document.getElementById('tokenLabel').value = newLabel;
-            closeEditModal();
-            renderTokens();
-            alert('Token label updated successfully! All tokens now display: ' + newLabel);
-        }
-
-        // Close modal when clicking outside
-        document.addEventListener('DOMContentLoaded', function() {
-            const modal = document.getElementById('editModal');
-            modal.addEventListener('click', function(event) {
-                if (event.target === modal) {
-                    closeEditModal();
+            function cancel() {
+                numElement.textContent = editedTokens[tokenNum] !== undefined ? editedTokens[tokenNum] : tokenNum;
+                numElement.classList.add('editable');
+            }
+            
+            input.addEventListener('blur', saveValue);
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    saveValue();
+                } else if (e.key === 'Escape') {
+                    cancel();
                 }
             });
-        });
+        }
+
+        function saveEdits() {
+            editMode = false;
+            const editBtn = document.getElementById('editToggle');
+            const editStatus = document.getElementById('editStatus');
+            const editControls = document.getElementById('editControls');
+            
+            editBtn.textContent = 'Edit Tokens';
+            editBtn.style.background = '';
+            editStatus.style.display = 'none';
+            editControls.style.display = 'none';
+            
+            alert('Changes saved successfully!');
+            renderTokens();
+        }
+
+        function cancelEdit() {
+            editedTokens = {};
+            editMode = false;
+            const editBtn = document.getElementById('editToggle');
+            const editStatus = document.getElementById('editStatus');
+            const editControls = document.getElementById('editControls');
+            
+            editBtn.textContent = 'Edit Tokens';
+            editBtn.style.background = '';
+            editStatus.style.display = 'none';
+            editControls.style.display = 'none';
+            
+            renderTokens();
+        }
 
         renderTokens();
     </script>
