@@ -189,13 +189,21 @@
             text-align: center;
             border: 2px solid #FF9800;
             border-radius: 6px;
-            padding: 4px 8px;
-            width: 70px;
+            padding: 6px 10px;
+            width: 75px;
             line-height: 1;
+            background: linear-gradient(to bottom, #fffbf7, #ffe8cc);
+            transition: all 0.3s ease;
         }
         .edit-input:focus {
             outline: none;
-            box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.2);
+            box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.25);
+            border-color: #F57C00;
+            transform: scale(1.05);
+        }
+        .edit-input::selection {
+            background: #FF9800;
+            color: white;
         }
         #editStatus {
             font-size: 12px;
@@ -207,6 +215,26 @@
             background: linear-gradient(135deg, #fff3e0, #ffe0b2);
             border-radius: 6px;
             margin-left: 12px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        .edit-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(2px);
+            display: none;
+            z-index: 999;
+            transition: all 0.3s ease;
+        }
+        .edit-overlay.active {
+            display: block;
         }
         .token-grid { 
             display: grid; 
@@ -267,6 +295,16 @@
             justify-content: center;
             padding: 8px 3px;
             border-right: 2px solid #e0e8f0;
+        }
+        .token-logo img { 
+            width: 40px; 
+            height: 40px; 
+            object-fit: contain; 
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+        .token-logo img:hover {
+            transform: scale(1.05);
         }
 
         /* Center content */
@@ -377,9 +415,11 @@
 </head>
 <body>
     <div class="header">
-        <h1>KPRIET Friday Lunch Tokens</h1>
+        <h1>KPRIET Hostel Tokens</h1>
         <p class="header-subtitle">Manage and print tokens for meals</p>
     </div>
+
+    <div class="edit-overlay" id="editOverlay"></div>
 
     <div class="container">
         <div class="controls">
@@ -511,6 +551,7 @@
             const editBtn = document.getElementById('editToggle');
             const editStatus = document.getElementById('editStatus');
             const editControls = document.getElementById('editControls');
+            const editOverlay = document.getElementById('editOverlay');
             const controls = document.querySelector('.controls');
             
             if (editMode) {
@@ -519,12 +560,14 @@
                 editStatus.style.display = 'inline-block';
                 editControls.style.display = 'flex';
                 editControls.style.justifyContent = 'center';
+                editOverlay.classList.add('active');
                 controls.style.alignItems = 'center';
             } else {
                 editBtn.textContent = 'Edit Tokens';
                 editBtn.style.background = '';
                 editStatus.style.display = 'none';
                 editControls.style.display = 'none';
+                editOverlay.classList.remove('active');
             }
             renderTokens();
         }
@@ -584,11 +627,13 @@
             const editBtn = document.getElementById('editToggle');
             const editStatus = document.getElementById('editStatus');
             const editControls = document.getElementById('editControls');
+            const editOverlay = document.getElementById('editOverlay');
             
             editBtn.textContent = 'Edit Tokens';
             editBtn.style.background = '';
             editStatus.style.display = 'none';
             editControls.style.display = 'none';
+            editOverlay.classList.remove('active');
             
             alert('Changes saved successfully!');
             renderTokens();
@@ -600,11 +645,13 @@
             const editBtn = document.getElementById('editToggle');
             const editStatus = document.getElementById('editStatus');
             const editControls = document.getElementById('editControls');
+            const editOverlay = document.getElementById('editOverlay');
             
             editBtn.textContent = 'Edit Tokens';
             editBtn.style.background = '';
             editStatus.style.display = 'none';
             editControls.style.display = 'none';
+            editOverlay.classList.remove('active');
             
             renderTokens();
         }
