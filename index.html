@@ -251,21 +251,53 @@
             font-weight: 500;
         }
         .edit-label-btn {
-            background: linear-gradient(135deg, #FF6B6B, #EE5A6F);
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            font-family: 'Nunito', sans-serif;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.2);
+              background: linear-gradient(135deg, #FF6B6B, #EE5A6F);
+              color: #fff;
+              border: none;
+              border-radius: 8px;
+              font-family: 'Nunito', sans-serif;
+              font-weight: 700;
+              font-size: 15px;
+              cursor: pointer;
+              box-shadow: 0 4px 12px rgba(255, 107, 107, 0.18);
+              padding: 10px 22px;
+              transition: background 0.2s, transform 0.2s;
+              margin-left: 6px;
+              margin-top: 2px;
+              letter-spacing: 0.02em;
         }
         .edit-label-btn:hover {
-            background: linear-gradient(135deg, #FF5252, #E63946);
-            transform: translateY(-1px);
+              background: linear-gradient(135deg, #FF5252, #E63946);
+              transform: translateY(-2px) scale(1.04);
         }
         @media print {
+                    @media (max-width: 600px) {
+                        .controls {
+                            flex-direction: column;
+                            gap: 16px;
+                            padding: 16px 8px;
+                        }
+                        .ctrl-group {
+                            width: 100%;
+                        }
+                        .token-label-input {
+                            width: 100%;
+                            min-width: 0;
+                        }
+                        .edit-label-btn {
+                            width: 100%;
+                            margin-left: 0;
+                            margin-top: 8px;
+                            padding: 12px 0;
+                            font-size: 16px;
+                        }
+                        .preview-btn, .print-btn {
+                            width: 100%;
+                            margin-top: 8px;
+                            font-size: 16px;
+                            padding: 12px 0;
+                        }
+                    }
             .pagination { display: none !important; }
             .controls { display: none !important; }
             body { background: white; padding: 0; margin: 0; }
