@@ -307,6 +307,93 @@
                 color-adjust: exact !important;
             }
         }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 900px) {
+            .container {
+                padding: 16px 4px;
+            }
+            .token-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+                padding: 0 0 1.5rem;
+            }
+        }
+        @media (max-width: 600px) {
+            .header {
+                padding: 24px 6px;
+            }
+            .header h1 {
+                font-size: 1.5em;
+            }
+            .container {
+                padding: 8px 2px;
+            }
+            .controls {
+                flex-direction: column;
+                gap: 12px;
+                padding: 12px 6px;
+                border-radius: 8px;
+            }
+            .ctrl-group {
+                width: 100%;
+            }
+            .token-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                padding: 0 0 1rem;
+            }
+            .token {
+                aspect-ratio: unset;
+                min-height: 90px;
+                border-radius: 8px;
+                flex-direction: row;
+                padding: 0;
+            }
+            .token-logo {
+                width: 38px;
+                padding: 4px 2px;
+            }
+            .logo-box {
+                width: 28px;
+                height: 28px;
+                font-size: 12px;
+            }
+            .token-left, .token-right {
+                width: 22px;
+                padding: 8px 0;
+                border-radius: 6px 0 0 6px;
+            }
+            .tok-num {
+                font-size: 24px;
+            }
+            .tok-day {
+                font-size: 8px;
+            }
+            .token-label-input {
+                width: 100%;
+                font-size: 13px;
+                padding: 6px 8px;
+            }
+            .edit-label-btn, .preview-btn, .print-btn {
+                width: 100%;
+                font-size: 13px;
+                padding: 8px 0;
+            }
+            .token-info {
+                font-size: 12px;
+                padding: 6px 8px;
+            }
+            .pagination {
+                flex-direction: column;
+                gap: 6px;
+                padding: 10px 0;
+            }
+            .page-btn {
+                width: 100%;
+                margin-bottom: 2px;
+            }
+        }
     </style>
 </head>
 <body>
